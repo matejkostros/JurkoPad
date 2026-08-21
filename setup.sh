@@ -56,6 +56,7 @@ fi
 echo
 
 echo "[5/6] Compiling firmware (macropad:vial)..."
+rm -rf "$BUILD_DIR"
 cd "$VIAL_QMK_DIR"
 make -j4 macropad:vial 2>&1 | grep -E "(^|$|error|warning|\[.*%)" || true
 cd "$SCRIPT_DIR"

@@ -2,25 +2,21 @@
   "keyboard_name": "JurkoPad",
   "manufacturer": "K0S3K",
   "maintainer": "user",
-  "usb": {
-    "vid": "0x6D61",
-    "pid": "0x6D70",
-    "device_version": "0.0.1"
+  "bootloader": "rp2040",
+  "diode_direction": "COL2ROW",
+  "features": {
+    "extrakey": true,
+    "nkro": true
   },
   "matrix_pins": {
     "rows": ["GP29", "GP28", "GP27", "GP26", "GP15"],
     "cols": ["GP10", "GP11", "GP12", "GP13"]
   },
-  "diode_direction": "COL2ROW",
   "processor": "RP2040",
-  "bootloader": "rp2040",
-  "features": {
-    "bootmagic": true,
-    "command": false,
-    "console": false,
-    "extrakey": true,
-    "mousekey": true,
-    "nkro": false
+  "usb": {
+    "device_version": "0.0.1",
+    "pid": "0x6D70",
+    "vid": "0x6D61"
   },
   "layouts": {
     "LAYOUT": {
