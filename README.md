@@ -6,7 +6,7 @@ A 5x4 custom mechanical numpad with Cherry MX switches, handwired and soldered t
 
 1. **Plug in via USB** - Num Lock toggles on automatically
 2. **All keys work out of the box** - Layer 0 is standard numpad layout
-3. **Reprogram anytime** - Open https://usevia.app and edit layers 1-9
+3. **Reprogram anytime** - Open https://vial.rocks and edit layers 1-9
 4. **Access bootloader** - Hold Fn, press Enter (for firmware updates)
 
 ## Layout
@@ -45,7 +45,7 @@ Lock0      -            -           Enter+Boot
 
 All layers 1-9 are empty by default. Configure them via Vial:
 
-1. Open https://usevia.app in browser
+1. Open https://vial.rocks in browser
 2. Connect your numpad (authorize device when prompted)
 3. Click each layer tab and assign keys
 4. Changes save automatically to your keyboard
@@ -73,7 +73,7 @@ Appears as "K0S3K JurkoPad" when connected to any computer.
 
 ### To Change a Key:
 
-1. Open https://usevia.app in browser
+1. Open https://vial.rocks in browser
 2. Select the layer you want to edit (Layer 1-9, or Layer 0 for defaults)
 3. Click any key in the layout
 4. Search for or select a new key code
