@@ -79,3 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TO(0),      KC_TRNS,    KC_TRNS,    KC_TRNS
     )
 };
+
+void matrix_init_user(void) {
+    tap_code(KC_NUM);
+}
