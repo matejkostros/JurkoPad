@@ -1,0 +1,24 @@
+# QMK build outputs
+vial-qmk/
+.build/
+*.uf2
+*.hex
+*.bin
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment
+.mise.toml.local
+__pycache__/
+*.pyc
+.env
+
+# OS
+Thumbs.db
+.directory
