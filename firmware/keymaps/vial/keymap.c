@@ -6,7 +6,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P7,      KC_P8,      KC_P9,      KC_PAST,
         KC_P4,      KC_P5,      KC_P6,      KC_PMNS,
         KC_P1,      KC_P2,      KC_P3,      KC_PPLS,
-        KC_P0,      KC_COMM,    KC_PDOT,    KC_PENT
+        KC_P0,      KC_BSPC,    KC_PDOT,    KC_PENT
     ),
     [1] = LAYOUT(
         KC_TRNS,    KC_TRNS,    MO(10),     KC_TRNS,
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TO(7),      TO(8),      TO(9),      KC_TRNS,
         TO(4),      TO(5),      TO(6),      KC_TRNS,
         TO(1),      TO(2),      TO(3),      KC_TRNS,
-        TO(0),      KC_TRNS,    KC_TRNS,    KC_TRNS
+        TO(0),      KC_TRNS,    KC_TRNS,    QK_BOOT
     )
 };
 
