@@ -1,196 +1,189 @@
-# MacroNumpad Build Guide
+# JurkoPad - Mechanical Numpad
 
-Custom Numpad with 1U Cherry MX mechanical switches, handwired and soldered to a Waveshare RP2040 Zero microcontroller. QMK firmware with Vial support for online reprogramming.
+A 5x4 custom mechanical numpad with Cherry MX switches, handwired and soldered to a Waveshare RP2040 Zero. Features QMK firmware with Vial support for runtime layer configuration and macro programming.
+
+## Quick Start
+
+1. **Plug in via USB** - Num Lock toggles on automatically
+2. **All keys work out of the box** - Layer 0 is standard numpad layout
+3. **Reprogram anytime** - Open https://usevia.app and edit layers 1-9
+4. **Access bootloader** - Hold Fn, press Enter (for firmware updates)
 
 ## Layout
 
-```
-[Num Lock]  [Calc]      [Fn]        [/]
-[7 Home]    [8 ↑]       [9 PgUp]    [*]
-[4 ←]       [5]         [6 →]       [-]
-[1 End]     [2 ↓]       [3 PgDn]    [+]
-[0 Ins]     [,]         [. Del]     [Enter]
-```
-
-## Wiring Diagram (ROW2COL)
-
-**RP2040 Zero Pinout** (viewing from top, USB on right):
+### Layer 0 (Default - Standard Numpad)
 
 ```
-    Row pins (right side): GPIO29, GPIO28, GPIO27, GPIO26, GPIO15
-    Col pins (bottom): GPIO10, GPIO11, GPIO12, GPIO13
+🔒 Lock    🧮 Calc      Fn          /
+7(Home)    8(↑)         9(PgUp)     *
+4(←)       5            6(→)        -
+1(End)     2(↓)         3(PgDn)     +
+0(Ins)     Backspace    .(Del)      Enter
 ```
 
-**Switch Matrix Layout** (5 rows x 4 cols):
+When **Num Lock is ON**: Keys send numbers (0-9, operators)  
+When **Num Lock is OFF**: Keys send navigation (arrows, Home, End, PgUp, PgDn, Insert, Delete)
+
+### Layer 10 (Fn Key - Layer Selector)
+
+Hold the **Fn key** to access this layer:
 
 ```
-                    Columns
-              GPIO10 GPIO11 GPIO12 GPIO13
-              (Col0) (Col1) (Col2) (Col3)
-                |      |      |      |
-                |      |      |      |
-GPIO3 (Row0):  SW0-[|||]-SW1-[|||]-SW2-[|||]-SW3-[|||]
-                |      |      |      |
-GPIO4 (Row1):  SW4-[|||]-SW5-[|||]-SW6-[|||]-SW7-[|||]
-                |      |      |      |
-GPIO5 (Row2):  SW8-[|||]-SW9-[|||]-SW10-[|||]-SW11-[|||]
-                |      |      |      |
-GPIO6 (Row3):  SW12-[|||]-SW13-[|||]-SW14-[|||]-SW15-[|||]
-                |      |      |      |
-GPIO7 (Row4):  SW16-[|||]-SW17-[|||]-SW18-[|||]-SW19-[|||]
-
-[|||] = 1N4148 diode cathode (-/stripe) toward row, anode toward col
+Fn         Fn           Fn          Boot
+Lock7      Lock8        Lock9       (Boot mode)
+Lock4      Lock5        Lock6
+Lock1      Lock2        Lock3
+Lock0      -            -           Enter+Boot
 ```
 
-**Physical Wiring** (what you already soldered):
+**How to use:**
+- Hold **Fn** and press any key to **lock** to that layer (0-9)
+- Each numpad key (0-9) corresponds to layer 0-9
+- Fn+Enter enters bootloader mode for firmware updates
 
+### Layers 1-9 (User Configurable)
+
+All layers 1-9 are empty by default. Configure them via Vial:
+
+1. Open https://usevia.app in browser
+2. Connect your numpad (authorize device when prompted)
+3. Click each layer tab and assign keys
+4. Changes save automatically to your keyboard
+
+Each layer inherits the Fn key, so you can always access the layer selector.
+
+## Features
+
+**Num Lock Auto-On**  
+Num Lock toggles on automatically when you plug in the keyboard. Numbers are ready to use immediately.
+
+**Multi-Layer Support**  
+11 layers total (Layer 0 default + Layers 1-9 custom + Layer 10 selector). Switch between layers instantly.
+
+**Bootloader Access Without Button**  
+Press Fn+Enter to enter bootloader mode. No need to physically press the BOOT button.
+
+**Macro Support**  
+Layer 1-9 support macros through Vial. Record complex key sequences and assign them to any key.
+
+**USB Identification**  
+Appears as "K0S3K JurkoPad" when connected to any computer.
+
+## Reprogram Via Vial
+
+### To Change a Key:
+
+1. Open https://usevia.app in browser
+2. Select the layer you want to edit (Layer 1-9, or Layer 0 for defaults)
+3. Click any key in the layout
+4. Search for or select a new key code
+5. Changes save immediately
+
+### To Create a Macro:
+
+1. In Vial, click on a key and select "Macro" from the key picker
+2. Enter the macro sequence (e.g., `Hello World`)
+3. Click save
+
+### To Lock to a Layer:
+
+1. Press Fn and hold it
+2. Press any key 0-9 to lock to that layer
+3. Release Fn
+4. You're now on Layer 0-9 (example: Fn+7 locks to Layer 7)
+
+## Update Firmware
+
+If you need to rebuild or update the firmware:
+
+```bash
+./setup.sh
 ```
-Column (yellow) ---[Switch]---[Diode|||]--- Row (black)
-                       pin1    cathode→     connected
-                       pin2                  to GPIO
 
-Flow: Row driven → Switch closes → Diode conducts → Column reads input
-Diode blocks backward current (prevents ghosting)
-```
+When prompted, hold the BOOT button, plug USB in, then release. The script will flash automatically.
 
-## Hardware Assembly
+---
 
-Your handwiring is already correct. Rows and columns are soldered, diodes oriented properly (cathode/stripe toward black row cables).
+## Build Instructions (for developers)
 
-Now connect to RP2040 Zero:
-
-**Row connections (black cables):**
-- Row 0 → GPIO29
-- Row 1 → GPIO28
-- Row 2 → GPIO27
-- Row 3 → GPIO26
-- Row 4 → GPIO15
-
-**Column connections (yellow cables):**
-- Column 0 → GPIO10
-- Column 1 → GPIO11
-- Column 2 → GPIO12
-- Column 3 → GPIO13
-
-**Power and Ground:**
-- Any GND pin on RP2040 → GND reference for your matrix (optional but recommended)
-
-## Build Process
-
-### Prerequisites (Fedora)
+### Prerequisites (Fedora Linux)
 
 ```bash
 sudo dnf install make python3 git arm-none-eabi-gcc arm-none-eabi-newlib
 ```
 
-Verify:
+Verify installation:
 
 ```bash
 make --version && python3 --version && arm-none-eabi-gcc --version
 ```
 
-### Step 1: Generate Firmware Config
-
-Edit `firmware/config.h` with your pin mappings (already pre-configured in the script):
-
-```c
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-#define MATRIX_ROW_PINS { GP3, GP4, GP5, GP6, GP7 }
-#define MATRIX_COL_PINS { GP10, GP11, GP12, GP13 }
-```
-
-### Step 2: Build and Flash
+### Build and Flash
 
 ```bash
 ./setup.sh
 ```
 
 The script will:
-- Check dependencies
-- Clone/update vial-qmk
-- Install QMK dependencies
-- Copy your firmware config
-- Compile the firmware
-- Wait for bootloader mode
-- Automatically flash when RPI-RP2 drive appears
+1. Check dependencies
+2. Clone/update vial-qmk
+3. Install QMK dependencies
+4. Copy firmware config
+5. Compile firmware
+6. Wait for bootloader mode
+7. Auto-flash when RPI-RP2 drive appears
 
-### Step 3: Enter Bootloader (when prompted)
+### Enter Bootloader Mode
+
+When prompted by the script:
 
 1. Hold BOOT button on RP2040 Zero
 2. Plug USB into computer (keep holding BOOT)
 3. Release BOOT button
 4. RPI-RP2 drive appears in file manager
-5. Script detects it and flashes automatically
+5. Script detects and flashes automatically
 
-### Step 4: Test with Vial
+### Wiring Reference (ROW2COL)
 
-Once flashed:
+**Row pins (GPIO):** 29, 28, 27, 26, 15  
+**Column pins (GPIO):** 10, 11, 12, 13  
+**Diode orientation:** Cathode (stripe) toward row, anode toward column
 
-1. Open https://usevia.app in browser
-2. Click "Authorize Device"
-3. You should see your 5x4 numpad layout
-4. Test each key by pressing it
-5. Configure layers 1-9 in the web UI
-6. Changes save to keyboard automatically
-
-## Troubleshooting
-
-### Device Not Recognized in Bootloader Mode
-
-- Verify USB cable is functional
-- Try a different USB port
-- Ensure BOOT button is held throughout the replug process
-
-### Build Fails with Compiler Error
-
-- Check that arm-none-eabi-gcc is installed: `arm-none-eabi-gcc --version`
-- Verify firmware configuration matches your hardware
-- Review the build output for specific errors
-
-### Keys Not Registering
-
-- Check matrix wiring for continuity issues
-- Verify GPIO pin assignments in firmware match your wiring
-- Test with a simple layer that has known key assignments
-- Use Vial's key tester to identify which positions aren't responding
-
-### Vial Device Not Appearing
-
-- Re-flash the firmware with Vial support enabled
-- Verify the `.uf2` file was built correctly
-- Try replugging the USB cable
-
-## File Structure
+### File Structure
 
 ```
-.
-├── README.md              # This file
-├── CLAUDE.md              # Build instructions for Claude
-├── build.sh               # Compile and flash script
-├── firmware/              # QMK keyboard configuration
-│   ├── config.h           # Matrix and pin definitions
-│   ├── keymap.c           # Key assignments
-│   ├── rules.mk           # Build configuration
-│   └── info.json          # Keyboard metadata
-├── layout/                # Keyboard layout files
-├── hardware/              # PCB and wiring documentation
-└── vial-qmk/              # Vial-QMK fork (created by build.sh)
+├── README.md                    # This file
+├── CLAUDE.md                    # Development notes
+├── setup.sh                     # Build and flash script
+├── layout.json                  # Keyboard Layout Editor JSON
+├── firmware/
+│   ├── config.h                # Matrix and feature config
+│   ├── info.json               # Keyboard metadata
+│   ├── rules.mk                # Build flags
+│   └── keymaps/vial/
+│       ├── keymap.c            # Layer definitions
+│       ├── config.h            # Vial settings
+│       └── vial.json           # Vial matrix definition
+└── vial-qmk/                    # QMK fork (auto-created)
 ```
 
-## Rebuilding
+### Troubleshooting
 
-To rebuild the firmware after making changes:
+**Device not recognized in Vial**
+- Re-flash using `./setup.sh`
+- Ensure bootloader mode was entered correctly
 
-```bash
-./build.sh
-```
+**Build fails with compiler error**
+- Verify arm-none-eabi-gcc is installed
+- Check Python version: `python3 --version` (should be 3.10+)
 
-Changes are automatically reflected in the new `.uf2` file. Re-flash using the same bootloader process.
+**Keys not registering**
+- Check matrix wiring continuity
+- Verify GPIO pins in firmware match your wiring
+- Use Vial's key tester to identify dead zones
 
 ## References
 
-- [QMK Documentation](https://docs.qmk.fm/)
-- [Vial Documentation](https://get.vial.today/)
+- [QMK Docs](https://docs.qmk.fm/)
+- [Vial Docs](https://get.vial.today/)
 - [RP2040 Datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf)
-- [Keyboard Layout Editor](https://keyboard-layout-editor.com/)
