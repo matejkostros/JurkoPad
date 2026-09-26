@@ -1,189 +1,142 @@
-# JurkoPad - Mechanical Numpad
+# JurkoPad 🔢⌨️
 
-A 5x4 custom mechanical numpad with Cherry MX switches, handwired and soldered to a Waveshare RP2040 Zero. Features QMK firmware with Vial support for runtime layer configuration and macro programming.
+Ahoj Jurko!
+Toto je tvoja vlastná klávesnica s číslami. Volá sa **JurkoPad**. Táto stránka ti ukáže, ako ju zapojiť, používať a ako si ju sám naprogramovať.
+Klávesnica je s čistými, neoznačenými klávesami, avšak dostal si k nej maličký návod, ktorý ti povie, že kde sa čo nachádza. Taktiež si dostal malý skrutkovač, ktorým vieš klávesnicu rozobrať a pozrieť sa čo je vo vnútri. Neboj sa, ak by sa niečo pokazilo, popros o pomoc ocka, alebo strýka Mateja.
 
-## Quick Start
+## 1. Ako ju zapojiť
 
-1. **Plug in via USB** - Num Lock toggles on automatically
-2. **All keys work out of the box** - Layer 0 is standard numpad layout
-3. **Reprogram anytime** - Open https://vial.rocks and edit layers 1-9
-4. **Access bootloader** - Hold Fn, press Enter (for firmware updates)
+1. Zober USB kábel.
+2. Zapoj ho do JurkoPadu.
+3. Druhý koniec zapoj do počítača.
+4. Hotovo! Čísla sú hneď pripravené na použitie.
 
-## Layout
+![JurkoPad zapojený do počítača](img/jurkopad-connected.jpg)
 
-### Layer 0 (Default - Standard Numpad)
+## 2. Ako ju používať
 
-```
-🔒 Lock    🧮 Calc      Fn          /
-7(Home)    8(↑)         9(PgUp)     *
-4(←)       5            6(→)        -
-1(End)     2(↓)         3(PgDn)     +
-0(Ins)     Backspace    .(Del)      Enter
-```
+Skús stlačiť klávesu **7**. Mala by sa objaviť sedmička. Ak sa nič nestalo, čítaj ďalej - vysvetlím prečo.
 
-When **Num Lock is ON**: Keys send numbers (0-9, operators)  
-When **Num Lock is OFF**: Keys send navigation (arrows, Home, End, PgUp, PgDn, Insert, Delete)
-
-### Layer 10 (Fn Key - Layer Selector)
-
-Hold the **Fn key** to access this layer:
+Klávesnica má 20 tlačidiel:
 
 ```
-Fn         Fn           Fn          Boot
-Lock7      Lock8        Lock9       (Boot mode)
-Lock4      Lock5        Lock6
-Lock1      Lock2        Lock3
-Lock0      -            -           Enter+Boot
+🔢 Num Lock  🧮 Kalkulačka   🔧 Fn      ➗
+7            8               9          ✖️
+4            5               6          ➖
+1            2               3          ➕
+0            ,               .          ⏎ Enter
 ```
 
-**How to use:**
-- Hold **Fn** and press any key to **lock** to that layer (0-9)
-- Each numpad key (0-9) corresponds to layer 0-9
-- Fn+Enter enters bootloader mode for firmware updates
+Prvé tlačidlo sa volá **Num Lock**. Je to taký vypínač pre čísla:
 
-### Layers 1-9 (User Configurable)
+- Keď je **Num Lock zapnutý**, tlačidlá 0 až 9 píšu **čísla**.
+- Keď je **Num Lock vypnutý**, tie isté tlačidlá robia iné veci (napríklad sa zmenia na šípky).
 
-All layers 1-9 are empty by default. Configure them via Vial:
+Keď JurkoPad zapojíš, sám sa pokúsi Num Lock zapnúť. Niekedy sa to ale nepodarí - závisí to od počítača. Ak čísla nefungujú, jednoducho stlač tlačidlo **Num Lock** a skús to znova.
 
-1. Open https://vial.rocks in browser
-2. Connect your numpad (authorize device when prompted)
-3. Click each layer tab and assign keys
-4. Changes save automatically to your keyboard
+## 3. Čarovné tlačidlo Fn a iné svety
 
-Each layer inherits the Fn key, so you can always access the layer selector.
+Vnútri JurkoPadu je schovaných **10 svetov** (po anglicky sa volajú **Layer**, čítaj "lejer"). Ty si teraz vo **svete 0**, kde sú čísla.
 
-## Features
+Tlačidlo **Fn** ťa vie preniesť do iného sveta:
 
-**Num Lock Auto-On**  
-Num Lock toggles on automatically when you plug in the keyboard. Numbers are ready to use immediately.
+1. Podrž prst na **Fn**.
+2. Popri tom stlač napríklad **1**.
+3. Pusti obe tlačidlá.
+4. Teraz si vo **svete 1**!
 
-**Multi-Layer Support**  
-11 layers total (Layer 0 default + Layers 1-9 custom + Layer 10 selector). Switch between layers instantly.
+Skús teraz stlačiť čísla - budú fungovať úplne rovnako ako predtým. To je normálne! Svety 1 až 9 sú na začiatku úplne prázdne a prázdny svet sa správa presne ako svet 0. Až keď mu sám niečo naučíš (o chvíľu ti ukážem ako), bude v ňom niečo iné.
 
-**Bootloader Access Without Button**  
-Press Fn+Enter to enter bootloader mode. No need to physically press the BOOT button.
+Chceš sa vrátiť k číslam? Podrž **Fn** a stlač **0**.
 
-**Macro Support**  
-Layer 1-9 support macros through Vial. Record complex key sequences and assign them to any key.
+> 💡 Zapamätaj si: **Fn + číslo** (0 až 9) ťa prenesie do sveta s tým číslom. Toto vieš urobiť kedykoľvek, aj bez počítača.
 
-**USB Identification**  
-Appears as "K0S3K JurkoPad" when connected to any computer.
+## 4. Ako otvoriť Vial (program na počítači)
 
-## Reprogram Via Vial
+**Vial** je program v prehliadači, ktorým naučíš JurkoPad nové tlačidlá. Bude po anglicky, ale neboj sa - všetko ti tu vysvetlím.
 
-### To Change a Key:
+1. Zapoj JurkoPad do počítača.
+2. Otvor prehliadač **Chrome** a choď na stránku **vial.rocks**
+3. Klikni na sivé tlačidlo **Start Vial**.
 
-1. Open https://vial.rocks in browser
-2. Select the layer you want to edit (Layer 1-9, or Layer 0 for defaults)
-3. Click any key in the layout
-4. Search for or select a new key code
-5. Changes save immediately
+   ![Tlačidlo Start Vial](img/vial-connect.png)
 
-### To Create a Macro:
+4. Objaví sa malé okienko. Pýta sa, ku ktorému zariadeniu sa chce pripojiť.
+5. Na obrázku nižšie sú červenými rámikmi vyznačené dve veci, ktoré máš urobiť: najprv klikni na **JurkoPad** v zozname, potom klikni na tlačidlo **Pripojiť**.
 
-1. In Vial, click on a key and select "Macro" from the key picker
-2. Enter the macro sequence (e.g., `Hello World`)
-3. Click save
+   ![Pripojenie zariadenia v prehliadači](img/vial-authorize.png)
 
-### To Lock to a Layer:
+6. Okienko zmizne a objaví sa obrázok tvojej klávesnice. Podarilo sa!
 
-1. Press Fn and hold it
-2. Press any key 0-9 to lock to that layer
-3. Release Fn
-4. You're now on Layer 0-9 (example: Fn+7 locks to Layer 7)
+## 5. Čo vidíš vo Viale
 
-## Update Firmware
+Obrazovka má tri hlavné časti:
 
-If you need to rebuild or update the firmware:
+![Obrazovka Vialu](img/vial-key-picker.png)
 
-```bash
-./setup.sh
-```
+- **Nahor** - riadok s číslami **0 až 10**. To sú tvoje svety (Layer). Kliknutím si len **pozeráš a upravuješ** ten svet - klávesnicu to ale neprepne naozaj! (Svet **10** je špeciálny, o tom je odstavec nižšie.)
+- **V strede** - obrázok tvojej klávesnice. Presne ako tá skutočná pred tebou.
+- **Dole** - veľký zoznam tlačidiel a funkcií, z ktorých si vyberáš.
 
-When prompted, hold the BOOT button, plug USB in, then release. The script will flash automatically.
+> ⚠️ **Dôležité:** Kliknutie na číslo svetu vo Viale (napr. **1** nahor) ti len **ukáže**, čo je v tom svete. Aby si sa na klávesnici naozaj prepol do sveta 1, musíš na klávesnici podržať **Fn** a stlačiť **1** (ako v kroku 3).
 
----
+Na obrázku klávesnice si všimni tlačidlo s nápisom **MO(10)**. To je len iné meno pre tvoje tlačidlo **Fn**. Nikdy mu nedávaj inú funkciu - inak by ti prestalo fungovať prepínanie svetov!
 
-## Build Instructions (for developers)
+## 6. Nauč tlačidlo nové písmeno
 
-### Prerequisites (Fedora Linux)
+Skúsime, aby tlačidlo **1** vo svete 1 písalo písmeno **A** namiesto čísla.
 
-```bash
-sudo dnf install make python3 git arm-none-eabi-gcc arm-none-eabi-newlib
-```
+1. Vo Viale klikni nahor na číslicu **1** (svet 1).
+2. Na obrázku klávesnice klikni na tlačidlo **1**. Orámuje sa - to znamená, že je vybraté.
+3. Dole klikni na záložku **Basic** (ak už nie je vybratá).
+4. Zíď v zozname dole, až nájdeš písmeno **A**, a klikni na neho.
+5. Na obrázku klávesnice sa tlačidlo **1** hneď zmení - teraz na ňom bude napísané **A**.
 
-Verify installation:
+Skús to naozaj:
 
-```bash
-make --version && python3 --version && arm-none-eabi-gcc --version
-```
+1. Na klávesnici podrž **Fn** a stlač **1** (prepneš sa do sveta 1).
+2. Stlač tlačidlo **1**. Malo by napísať písmeno **a**!
+3. Chceš sa vrátiť k číslam? Podrž **Fn** a stlač **0**.
 
-### Build and Flash
+## 7. Nauč tlačidlo celé slovo (macro)
 
-```bash
-./setup.sh
-```
+V kroku 6 sme tlačidlo naučili jedno písmeno. Ale tlačidlo sa vie naučiť aj **celý riadok písmen, čísel a znakov naraz** - to sa volá **macro** (čítaj "makro"). Stlačíš jedno tlačidlo, a klávesnica za teba napíše čokoľvek, čo si ho naučil - hoci aj celé svoje meno! Skúsme prerobiť to isté tlačidlo **1** na svete 1, aby napísalo tvoje meno.
 
-The script will:
-1. Check dependencies
-2. Clone/update vial-qmk
-3. Install QMK dependencies
-4. Copy firmware config
-5. Compile firmware
-6. Wait for bootloader mode
-7. Auto-flash when RPI-RP2 drive appears
+1. Vo Viale klikni nahor na záložku **Macros**.
+2. Na obrázku nižšie sú červenými rámikmi vyznačené dva kroky: klikni na **M1**, potom na tlačidlo **Open Text Editor...**
 
-### Enter Bootloader Mode
+   ![Otvorenie editora pre makro](img/vial-custom-macro.png)
 
-When prompted by the script:
+3. Objaví sa prázdne okienko s kurzorom. Napíš tam svoje meno, napríklad `Jurko`.
+4. Klikni na **Apply** (Použiť) - okienko sa zavrie.
+5. Na obrázku nižšie sú červenými rámikmi vyznačené štyri kroky: klikni na záložku **Keymap**, potom nahor na číslicu **1** (svet 1), potom na tlačidlo **1** na obrázku klávesnice, a napokon dole na záložku **Macro** a na **M1**.
 
-1. Hold BOOT button on RP2040 Zero
-2. Plug USB into computer (keep holding BOOT)
-3. Release BOOT button
-4. RPI-RP2 drive appears in file manager
-5. Script detects and flashes automatically
+   ![Priradenie makra na tlačidlo](img/vial-assign-custom-macro.png)
 
-### Wiring Reference (ROW2COL)
+6. Na obrázku klávesnice sa tlačidlo **1** zmení - bude na ňom **M1**.
 
-**Row pins (GPIO):** 29, 28, 27, 26, 15  
-**Column pins (GPIO):** 10, 11, 12, 13  
-**Diode orientation:** Cathode (stripe) toward row, anode toward column
+Skús to naozaj:
 
-### File Structure
+1. Na klávesnici podrž **Fn** a stlač **1** (prepneš sa do sveta 1).
+2. Stlač tlačidlo **1**. Malo by napísať `Jurko`!
+3. Chceš sa vrátiť k číslam? Podrž **Fn** a stlač **0**.
 
-```
-├── README.md                    # This file
-├── CLAUDE.md                    # Development notes
-├── setup.sh                     # Build and flash script
-├── layout.json                  # Keyboard Layout Editor JSON
-├── firmware/
-│   ├── config.h                # Matrix and feature config
-│   ├── info.json               # Keyboard metadata
-│   ├── rules.mk                # Build flags
-│   └── keymaps/vial/
-│       ├── keymap.c            # Layer definitions
-│       ├── config.h            # Vial settings
-│       └── vial.json           # Vial matrix definition
-└── vial-qmk/                    # QMK fork (auto-created)
-```
+Teraz to už vieš sám - môžeš si takto naučiť aj ostatné tlačidlá, v ktoromkoľvek svete od 1 do 9!
 
-### Troubleshooting
+## 8. Vrátiť všetko do pôvodného stavu
 
-**Device not recognized in Vial**
-- Re-flash using `./setup.sh`
-- Ensure bootloader mode was entered correctly
+Ak si sa pri skúšaní zamotal a chceš, aby bolo všetko tak, ako keď bol JurkoPad úplne nový, nemusíš nič otvárať na počítači. Stačí toto:
 
-**Build fails with compiler error**
-- Verify arm-none-eabi-gcc is installed
-- Check Python version: `python3 --version` (should be 3.10+)
+1. Podrž tlačidlo **Fn**.
+2. Popri tom stlač tlačidlo **Num Lock** (je to prvé tlačidlo vľavo hore).
+3. Pusti obe tlačidlá.
 
-**Keys not registering**
-- Check matrix wiring continuity
-- Verify GPIO pins in firmware match your wiring
-- Use Vial's key tester to identify dead zones
+Všetky svety 1 až 9, ktoré si naučil nové tlačidlá alebo makrá, budú znova prázdne - presne ako na začiatku.
 
-## References
+> ⚠️ Toto vymaže všetko, čo si si vo Viale nastavil. Používaj to, len keď to naozaj chceš.
 
-- [QMK Docs](https://docs.qmk.fm/)
-- [Vial Docs](https://get.vial.today/)
-- [RP2040 Datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf)
+## Keď niečo nefunguje
+
+- Vytiahni a znova zapoj USB kábel.
+- Vo Viale skús stránku znova načítať (F5) a zapoj klávesnicu nanovo.
+- Popros dospelého o pomoc. 🙂

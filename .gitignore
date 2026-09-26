@@ -22,3 +22,4 @@ __pycache__/
 # OS
 Thumbs.db
 .directory
+.*.kate-swp

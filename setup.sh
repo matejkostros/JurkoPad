@@ -48,7 +48,6 @@ echo "[4/6] Copying firmware config..."
 mkdir -p "$VIAL_QMK_DIR/keyboards/macropad/keymaps/vial"
 cp "$FIRMWARE_DIR/keyboard.json" "$VIAL_QMK_DIR/keyboards/macropad/"
 cp "$FIRMWARE_DIR/config.h" "$VIAL_QMK_DIR/keyboards/macropad/"
-cp "$FIRMWARE_DIR/keymap.c" "$VIAL_QMK_DIR/keyboards/macropad/"
 cp "$FIRMWARE_DIR/rules.mk" "$VIAL_QMK_DIR/keyboards/macropad/"
 if [ -d "$FIRMWARE_DIR/keymaps/vial" ]; then
     cp -r "$FIRMWARE_DIR/keymaps/vial"/* "$VIAL_QMK_DIR/keyboards/macropad/keymaps/vial/"
@@ -74,17 +73,35 @@ echo
 
 echo "=== Ready to Flash ==="
 echo
-echo "1. Hold BOOT button on RP2040 Zero"
+echo "PREFERRED: enter bootloader from the keyboard itself, no button needed."
+echo "(Only works if JurkoPad already has working firmware on it.)"
+echo
+echo "  [Num Lock]  [ Calc ]  [  Fn  ]  [  /  ]"
+echo "  [    7   ]  [   8  ]  [   9  ]  [  *  ]"
+echo "  [    4   ]  [   5  ]  [   6  ]  [  -  ]"
+echo "  [    1   ]  [   2  ]  [   3  ]  [  +  ]"
+echo "  [    0   ]  [ Bksp ]  [   .  ]  [Enter] <-- press this while holding Fn"
+echo
+echo "1. Hold the Fn key (top row, 3rd key)"
+echo "2. While still holding Fn, press Enter (bottom-right key)"
+echo "3. Release both keys -- 'RPI-RP2' drive should appear"
+echo
+echo "FALLBACK: use the physical BOOT button only if the pad doesn't respond,"
+echo "or this is the very first flash on a blank board (Fn+Enter needs"
+echo "firmware already running to catch the combo, so it can't help here)."
+echo
+echo "1. Hold the BOOT button on the RP2040 Zero"
 echo "2. Plug USB into computer (while holding BOOT)"
 echo "3. Release BOOT button"
 echo
-read -p "Press Enter when you've entered bootloader mode..."
+read -p "Press Enter when you've entered bootloader mode (either way)..."
 echo
 
 RPI_DEVICE=$(lsblk -o NAME,LABEL 2>/dev/null | grep RPI-RP2 | awk '{print $1}' | sed 's/[├└─]//g')
 if [ -z "$RPI_DEVICE" ]; then
     echo "ERROR: RPI-RP2 not found."
-    echo "Check: USB cable, BOOT button held during replug"
+    echo "Check: USB cable, and that you either held Fn+Enter on the pad"
+    echo "or held BOOT while plugging in"
     echo "Try: lsblk"
     exit 1
 fi
@@ -116,4 +133,4 @@ echo "Flash complete! Device rebooting..."
 sleep 3
 echo
 echo "JurkoPad is ready!"
-echo "Next: Unplug and replug USB (normal mode), then open https://usevia.app"
+echo "Next: Unplug and replug USB (normal mode), then open https://vial.rocks"
