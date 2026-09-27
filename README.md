@@ -56,7 +56,7 @@ Chceš sa vrátiť k číslam? Podrž **Fn** a stlač **0**.
 **Vial** je program v prehliadači, ktorým naučíš JurkoPad nové tlačidlá. Bude po anglicky, ale neboj sa - všetko ti tu vysvetlím.
 
 1. Zapoj JurkoPad do počítača.
-2. Otvor prehliadač **Chrome** a choď na stránku **vial.rocks**
+2. Otvor prehliadač **Chrome** a choď na stránku [vial.rocks](https://vial.rocks)
 3. Klikni na sivé tlačidlo **Start Vial**.
 
    ![Tlačidlo Start Vial](img/vial-connect.png)
